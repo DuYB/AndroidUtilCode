@@ -1,6 +1,8 @@
 package com.blankj.androidutilcode.base;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,36 +12,36 @@ import android.view.View;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/10/24
- *     desc  : Activity基类
+ *     desc  : Activity 基类
  * </pre>
  */
 public abstract class BaseActivity extends AppCompatActivity
-        implements IView, View.OnClickListener {
+        implements IBaseView {
 
-    /**
-     * 当前Activity渲染的视图View
-     */
-    protected View contentView;
+    protected View     mContentView;
+    protected Activity mActivity;
+
     /**
      * 上次点击时间
      */
     private long lastClick = 0;
-
-    protected BaseActivity mActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = this;
         Bundle bundle = getIntent().getExtras();
-        initData(bundle);
-        setBaseView();
-        initView(savedInstanceState, contentView);
-        doBusiness(this);
+        if (bundle != null) {
+            initData(bundle);
+        }
+        setBaseView(bindLayout());
+        initView(savedInstanceState, mContentView);
+        doBusiness();
     }
 
-    protected void setBaseView() {
-        setContentView(contentView = LayoutInflater.from(this).inflate(bindLayout(), null));
+    protected void setBaseView(@LayoutRes int layoutId) {
+        if (layoutId <= 0) return;
+        setContentView(mContentView = LayoutInflater.from(this).inflate(layoutId, null));
     }
 
     /**
