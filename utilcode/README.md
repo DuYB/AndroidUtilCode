@@ -2,13 +2,13 @@
 
 Gradle:
 ```groovy
-compile 'com.blankj:utilcode:1.13.10'
+implementation 'com.blankj:utilcode:1.14.0'
 ```
 
 
 ## How to use
 
-```
+```java
 // init it in the function of onCreate in ur Application
 Utils.init(application);
 ```
@@ -16,11 +16,7 @@ Utils.init(application);
 
 ## Proguard
 
-```
--keep class com.blankj.utilcode.** { *; }
--keepclassmembers class com.blankj.utilcode.** { *; }
--dontwarn com.blankj.utilcode.**
-```
+U needn't do anything, because I add `consumerProguardFiles 'proguard-rules.pro'` in build.gradle.
 
 
 ## APIs
@@ -54,6 +50,7 @@ isAppDebug
 isAppSystem
 isAppForeground
 launchApp
+relaunchApp
 launchAppDetailsSettings
 exitApp
 getAppIcon
@@ -85,6 +82,8 @@ setNotificationBarVisibility
 getNavBarHeight
 setNavBarVisibility
 setNavBarImmersive
+setNavBarColor
+getNavBarColor
 isNavBarVisible
 ```
 
@@ -159,6 +158,7 @@ getAndroidID
 getMacAddress
 getManufacturer
 getModel
+getABIs
 shutdown
 reboot
 reboot2Recovery
@@ -198,6 +198,8 @@ encrypt3DES, encrypt3DES2HexString, encrypt3DES2Base64
 decrypt3DES, decryptHexString3DES, decryptBase64_3DES
 encryptAES, encryptAES2HexString, encryptAES2Base64
 decryptAES, decryptHexStringAES, decryptBase64AES
+encryptRSA, encryptRSA2HexString, encryptRSA2Base64
+decryptRSA, decryptHexStringRSA, decryptBase64RSA
 ```
 
 * ### About FileIO -> [FileIOUtils.java][fileio.java] -> [Test][fileio.test]
@@ -346,9 +348,12 @@ Config.setLog2FileSwitch
 Config.setDir
 Config.setFilePrefix
 Config.setBorderSwitch
+Config.setSingleTagSwitch
 Config.setConsoleFilter
 Config.setFileFilter
 Config.setStackDeep
+Config.setStackOffset
+log
 v
 vTag
 d
@@ -430,6 +435,8 @@ sendSmsSilent
 getForegroundProcessName
 killAllBackgroundProcesses
 killBackgroundProcesses
+isMainProcess
+getCurrentProcessName
 ```
 
 * ### About Reflect -> [ReflectUtils.java][reflect.java] -> [Test][reflect.test]
@@ -482,6 +489,8 @@ isTablet
 
 * ### About SDCard -> [SDCardUtils.java][sdcard.java] -> [Demo][sdcard.demo]
 ```
+isSDCardEnableByEnvironment
+getSDCardPathByEnvironment
 isSDCardEnable
 getSDCardPaths
 ```
@@ -636,12 +645,18 @@ getZodiac
 setGravity
 setBgColor
 setBgResource
-setMessageColor
+setMsgColor
+setMsgTextSize
 showShort
 showLong
 showCustomShort
 showCustomLong
 cancel
+```
+
+* ### About Uri -> [UriUtils.java][uri.java]
+```
+getUriForFile
 ```
 
 * ### About Zip -> [ZipUtils.java][zip.java] -> [Test][zip.test]
@@ -760,6 +775,8 @@ getComments
 
 [toast.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ToastUtils.java
 [toast.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/toast/ToastActivity.java
+
+[uri.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/UriUtils.java
 
 [zip.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ZipUtils.java
 [zip.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/ZipUtilsTest.java
